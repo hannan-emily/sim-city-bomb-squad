@@ -18,7 +18,26 @@ var wiresCut = {
 //this relates to an id, which it knows is an img, therefore we can reference "src" becuase it infers that
 //overwriting the img src with a new img src
 var cutWire =  function() {
-  this.src = "img/cut-" + this.id + "-wire.png";
+  //we have to see if this action was a right or wrong choice
+  //if this wiresCut does not match false (if it's been overwritten as true)
+  //if it needs to be cut, then we'll switch the image to  if this function is called upon
+  if (!wiresCut[this.id]) {
+      this.src = "img/cut-" + this.id + "-wire.png";
+      wiresCut[this.id] =  true;
+      //now let's check if this value matches the wiresToCut array. we're saving as a new variable.
+      var wireIndex = wiresToCut.indexOf(this.id);
+        //if it comes back as -1, we know it wasn't in that array
+        if (wireIndex > -1) {
+          // this is where the good cut logic goes
+          console.log("this.id" + " was correct!");
+          wiresToCut.splice(wireIndex, 1);
+          //now we have to check if this click won the game.
+           
+        } else {
+          //this is where the bad cut logic goes
+        }
+      }
+  }
 };
 
   //reset the images to default when we run this function
@@ -52,7 +71,8 @@ var initGame = function (){
       return false;
     }
   });
-};
+
+}
 
 
 
