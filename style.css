@@ -27,4 +27,13 @@ body {
 
 .timerBox {
   color: white;
+  padding: 2%;
+}
+
+.buttonBox {
+  padding: 2%;
+}
+
+#reset {
+  width: 150px;
 }

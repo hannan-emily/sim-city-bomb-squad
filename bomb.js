@@ -1,8 +1,24 @@
 console.log("javascript running");
 
 document.addEventListener("DOMContentLoaded", function() {
-  console.log("DOM loaded");
+
+
+//put the function above, since we're callin it below
+var cutWire =  function ()
+
+// get element to click on (document blah  blahc . addevent (event, function name))
+document.getElementById("blue").addEventListener('click', cutWire)
+document.getElementById("green").addEventListener('click', cutWire)
+document.getElementById("red").addEventListener('click', cutWire)
+document.getElementById("white").addEventListener('click', cutWire)
+document.getElementById("yellow").addEventListener('click', cutWire)
+
+
 });
+
+
+
+
 
 //cut wire = click = swap image out to cut wire image
 
@@ -36,4 +52,6 @@ document.addEventListener("DOMContentLoaded", function() {
 //var bombDefuse = true or false
 //var bombExplode = true or false
 //var
-//var 
+//var
+
+//replace image = setAttribute
