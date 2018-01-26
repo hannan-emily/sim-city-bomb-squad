@@ -1,18 +1,51 @@
-console.log("javascript running");
+var totalTime = 30;
+var timeRemaning = 0;
+//combines win and lose conditions
+var gameOver = false;
+//this has to hold multiple values/each wire
+var wiresToCut = [];
+
+
+//put the function above, since we're calling it below
+//selecting this particular wire, not any other wire, from the getElementById (it knows if we clicked on green or blue or red)
+//this relates to an id, which it knows is an img, therefore we can reference "src" becuase it infers that
+//overwriting the img src with a new img src
+var cutWire =  function() {
+  this.src = "img/cut-" + this.id + "-wire.png";
+};
+
+  //reset the images to default when we run this function
+var reset = function() {
+  //set up a loop to set all images to "uncut + id + -wire.ong".
+  //locate the class. start at 0. every element thats a child, now store in all in "wireImages".
+  //we're grabbing and storing, returning a html collection
+  //for loop below goes thrhogh and replaces all the images for each child
+  var wireImages = document.getElementsByClassName('imageBox')[0].children;
+  for (var i = 0; i < wireImages.length; i++) {
+    wireImages[i].src = "img/uncut-" + wireImages[i].id + "-wire.png";
+  }
+
+};
+
+//how do we store a variable if it's been clicked?????
+// write new function to this.element append class "clickedClicked"
+
+
+var initGame = function (){
+  timeRemaning = totalTime;
+
+};
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
-
-
-//put the function above, since we're callin it below
-var cutWire =  function ()
-
 // get element to click on (document blah  blahc . addevent (event, function name))
-document.getElementById("blue").addEventListener('click', cutWire)
-document.getElementById("green").addEventListener('click', cutWire)
-document.getElementById("red").addEventListener('click', cutWire)
-document.getElementById("white").addEventListener('click', cutWire)
-document.getElementById("yellow").addEventListener('click', cutWire)
-
+document.getElementById("blue").addEventListener('click', cutWire);
+document.getElementById("green").addEventListener('click', cutWire);
+document.getElementById("red").addEventListener('click', cutWire);
+document.getElementById("white").addEventListener('click', cutWire);
+document.getElementById("yellow").addEventListener('click', cutWire);
+document.getElementById("reset").addEventListener('click', reset);
 
 });
 
