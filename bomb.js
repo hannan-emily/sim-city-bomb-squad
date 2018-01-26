@@ -5,12 +5,24 @@ var gameOver = false;
 //this has to hold multiple values/each wire
 var wiresToCut = [];
 
+var delay = null;
+var timer = null;
+
 var wiresCut = {
   blue: false,
   green: false,
   red: false,
   white: false,
   yellow: false,
+}
+
+var checkForWin = function() {
+  // check if there are wires left // game not over, still have wires // true game is over
+  return wiresToCut.length > 0 ? false : true;
+}
+
+var endGame = function(win); {
+  gameOver = true;
 }
 
 //put the function above, since we're calling it below
@@ -32,13 +44,16 @@ var cutWire =  function() {
           console.log("this.id" + " was correct!");
           wiresToCut.splice(wireIndex, 1);
           //now we have to check if this click won the game.
-           
+          if (checkForWin()) {
+            endGame(true);
+          }
         } else {
           //this is where the bad cut logic goes
+          delay = setTimeout(detonate, 750);
         }
       }
-  }
-};
+  };
+
 
   //reset the images to default when we run this function
 var reset = function() {
