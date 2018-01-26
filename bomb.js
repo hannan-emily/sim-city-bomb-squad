@@ -5,6 +5,13 @@ var gameOver = false;
 //this has to hold multiple values/each wire
 var wiresToCut = [];
 
+var wiresCut = {
+  blue: false,
+  green: false,
+  red: false,
+  white: false,
+  yellow: false,
+}
 
 //put the function above, since we're calling it below
 //selecting this particular wire, not any other wire, from the getElementById (it knows if we clicked on green or blue or red)
@@ -33,7 +40,18 @@ var reset = function() {
 
 var initGame = function (){
   timeRemaning = totalTime;
-
+  var allColors = Object.keys(wiresCut); //this var holds all our colors from above var wiresCut (array with key values)
+  //create new array only showing filteres results from old wire array
+  //create filter for 50/50 chance
+  //store new array as wiresToCut by overwriting
+    wiresToCut = allColors.filter(function () {
+      var rand = Math.random(); //generates a number between 0 and 1
+      if (rand > 0.5) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 };
 
 
