@@ -21,8 +21,22 @@ var checkForWin = function() {
   return wiresToCut.length > 0 ? false : true;
 }
 
-var endGame = function(win); {
+var detonate = function() {
+  endGame(false);
+}
+
+var endGame = function(win) {
   gameOver = true;
+  clearTimeout(delay);
+  clearInterval(timer);
+  if (win) {
+    console.log("CONGRATS THEY DIDN'T DIE")
+    document.getElementsByClassName("timerBox")[0].style.color = "green";
+  } else {
+    console.log("Yikes, goodbye SimCity")
+    document.body.classList.remove("unexploded");
+    document.body.classList.add("exploded");
+  }
 }
 
 //put the function above, since we're calling it below
@@ -65,7 +79,11 @@ var reset = function() {
   for (var i = 0; i < wireImages.length; i++) {
     wireImages[i].src = "img/uncut-" + wireImages[i].id + "-wire.png";
   }
-
+  for (color in wiresCut) {
+    wiresCut[color] = false;
+  }
+  document.body.classList = "unexploded";
+  initGame();
 };
 
 //how do we store a variable if it's been clicked?????
@@ -86,6 +104,7 @@ var initGame = function (){
       return false;
     }
   });
+  console.log(wiresToCut);
 
 }
 
@@ -93,51 +112,11 @@ var initGame = function (){
 
 document.addEventListener("DOMContentLoaded", function() {
 // get element to click on (document blah  blahc . addevent (event, function name))
-document.getElementById("blue").addEventListener('click', cutWire);
-document.getElementById("green").addEventListener('click', cutWire);
-document.getElementById("red").addEventListener('click', cutWire);
-document.getElementById("white").addEventListener('click', cutWire);
-document.getElementById("yellow").addEventListener('click', cutWire);
-document.getElementById("reset").addEventListener('click', reset);
-
+  document.getElementById("blue").addEventListener('click', cutWire);
+  document.getElementById("green").addEventListener('click', cutWire);
+  document.getElementById("red").addEventListener('click', cutWire);
+  document.getElementById("white").addEventListener('click', cutWire);
+  document.getElementById("yellow").addEventListener('click', cutWire);
+  document.getElementById("reset").addEventListener('click', reset);
+  initGame();
 });
-
-
-
-
-
-//cut wire = click = swap image out to cut wire image
-
-//can't uncut the wire, flag wire as cut
-
-//each time bomb is reset, reset 5 wired
-
-//wire has 50% chance to be cut
-
-//Cut Wires
-  //set timeout for 750 (ms) delay on a bad wire for bomb event or not bomb event
-//Reset Game
-  //reset wire logic
-  //math.random to decide which ones need to be Cut
-  //swap city image in
-//Win
-  //stop timer
-  //turn timer text green
-  //stop timeout before bomb blows p
-//Lose
-  //swap explosion image in//var
-
-//bomb
-  //keep track of bomb exploded or not exploded
-//timer
-  //stop clock when we lose = bomb
-  //should run down to 0 at the end
-
-//var timerTotal = 30 seconds
-//var timerRemain = seconds left
-//var bombDefuse = true or false
-//var bombExplode = true or false
-//var
-//var
-
-//replace image = setAttribute

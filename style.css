@@ -11,7 +11,6 @@ body {
 
 .unexploded {
   background-image: url("./img/simcity.jpg");
-
 }
 
 .exploded {
@@ -26,7 +25,7 @@ body {
 }
 
 .timerBox {
-  color: white;
+  color: red;
   padding: 2%;
 }
 
