@@ -32,6 +32,11 @@ var endGame = function(win) {
   if (win) {
     console.log("CONGRATS THEY DIDN'T DIE")
     document.getElementsByClassName("timerBox")[0].style.color = "green";
+    var yay = document.getElementById('yay');
+    yay.addEventListener("ended", function() {
+      successSong.play();
+    });
+    yay.play();
   } else {
     console.log("Yikes, goodbye SimCity")
     document.body.classList.remove("unexploded");
@@ -49,6 +54,7 @@ var cutWire =  function() {
   //if it needs to be cut, then we'll switch the image to  if this function is called upon
   //we also add a condition the the gameOver must not be true. so, once the game is over, we cannot cut wires (replace image)
   if (!wiresCut[this.id] && !gameOver) {
+      // document.getElementById.("buzz").play();
       this.src = "img/cut-" + this.id + "-wire.png";
       wiresCut[this.id] =  true;
       //now let's check if this value matches the wiresToCut array. we're saving as a new variable.
@@ -77,16 +83,20 @@ var reset = function() {
   //we're grabbing and storing, returning a html collection
   //for loop below goes thrhogh and replaces all the images for each child
   gameOver = false;
+
   var wireImages = document.getElementsByClassName('imageBox')[0].children;
   for (var i = 0; i < wireImages.length; i++) {
     wireImages[i].src = "img/uncut-" + wireImages[i].id + "-wire.png";
   }
 
   document.body.classList = "unexploded";
-  document.querySelector(".timerBox p").style.color = "red";
+  document.querySelector(".timerBox").style.color = "red";
 
   clearTimeout(delay);
   clearInterval(timer);
+
+  successSong.pause(); // reset
+  successSong.currentTime = 0; // reset song back to initial start. otherwise, once unpaused, it'll start again where it left off.
 
   for (color in wiresCut) {
     wiresCut[color] = false;
@@ -132,8 +142,6 @@ var initGame = function() {
   timer = setInterval(updateClock, 1000);
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
 // get element to click on (document blah  blahc . addevent (event, function name))
   document.getElementById("blue").addEventListener('click', cutWire);
@@ -141,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById("red").addEventListener('click', cutWire);
   document.getElementById("white").addEventListener('click', cutWire);
   document.getElementById("yellow").addEventListener('click', cutWire);
+  successSong = document.getElementById('success'); // turn html element into variable for use
   document.getElementById("reset").addEventListener('click', reset);
   initGame();
 });
