@@ -1,5 +1,5 @@
 var totalTime = 30;
-var timeRemaning = 0;
+var timeRemaining = 0;
 //combines win and lose conditions
 var gameOver = false;
 //this has to hold multiple values/each wire
@@ -47,7 +47,8 @@ var cutWire =  function() {
   //we have to see if this action was a right or wrong choice
   //if this wiresCut does not match false (if it's been overwritten as true)
   //if it needs to be cut, then we'll switch the image to  if this function is called upon
-  if (!wiresCut[this.id]) {
+  //we also add a condition the the gameOver must not be true. so, once the game is over, we cannot cut wires (replace image)
+  if (!wiresCut[this.id] && !gameOver) {
       this.src = "img/cut-" + this.id + "-wire.png";
       wiresCut[this.id] =  true;
       //now let's check if this value matches the wiresToCut array. we're saving as a new variable.
@@ -75,22 +76,45 @@ var reset = function() {
   //locate the class. start at 0. every element thats a child, now store in all in "wireImages".
   //we're grabbing and storing, returning a html collection
   //for loop below goes thrhogh and replaces all the images for each child
+  gameOver = false;
   var wireImages = document.getElementsByClassName('imageBox')[0].children;
   for (var i = 0; i < wireImages.length; i++) {
     wireImages[i].src = "img/uncut-" + wireImages[i].id + "-wire.png";
   }
+
+  document.body.classList = "unexploded";
+  document.querySelector(".timerBox p").style.color = "red";
+
+  clearTimeout(delay);
+  clearInterval(timer);
+
   for (color in wiresCut) {
     wiresCut[color] = false;
   }
-  document.body.classList = "unexploded";
+
   initGame();
 };
 
 //how do we store a variable if it's been clicked?????
 // write new function to this.element append class "clickedClicked"
 
+updateClock = function() {
+  timeRemaining--;
+  var seconds = 0;
+  var hundredths = 0;
 
-var initGame = function (){
+  if ((timeRemaning) >= 0) {
+    seconds = Math.floor(timeRemaining / 100);
+    hundredths = timeRemaining - (seconds * 100);
+  } else {
+    endGame(false);
+  }
+  var secondsString = seconds >= 10 ? seconds.toString() : "0" + seconds.toString();
+  var hundredthsString = hundredths >= 10 ? hundredths.toString() : "0" + hundredths.toString();
+  document.querySelector(".timerBox p").textContent = ("0:00:" + secondsString + ":" + hundredthsString);
+}
+
+var initGame = function() {
   timeRemaning = totalTime;
   var allColors = Object.keys(wiresCut); //this var holds all our colors from above var wiresCut (array with key values)
   //create new array only showing filteres results from old wire array
@@ -105,7 +129,7 @@ var initGame = function (){
     }
   });
   console.log(wiresToCut);
-
+  timer = setInterval(updateClock, 1000);
 }
 
 
